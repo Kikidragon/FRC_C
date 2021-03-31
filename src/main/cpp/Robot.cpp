@@ -8,6 +8,22 @@
 
 #include <frc/smartdashboard/SmartDashboard.h>
 
+#include <frc/WPILib.h>
+#include "rev/SparkMax.h"
+
+
+
+frc::Joystick driveStick{0};
+float joyX{0}; 
+float joyY{0};
+float joyZ{0};
+
+float fL{0};
+float fR{0};
+float bL{0};
+float bR{0};
+
+
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption(kAutoNameDefault, kAutoNameDefault);
   m_chooser.AddOption(kAutoNameCustom, kAutoNameCustom);
@@ -58,11 +74,21 @@ void Robot::AutonomousPeriodic() {
 
 void Robot::TeleopInit() {}
 
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+  DriveFunction (driveStick.GetRawAxis(4), driveStick.GetRawAxis(5), driveStick.GetRawAxis(0));
+}
 
-void Robot::DisabledInit() {}
+void DriveFunction(float xAxis, float yAxis, float zAxis) {
+  joyX = xAxis;
+  joyY = -yAxis;
+  joyZ = zAxis;
 
-void Robot::DisabledPeriodic() {}
+  fL = 1;
+  fR = 1;
+  bL = 1;
+  bR = 1;
+}
+
 
 void Robot::TestInit() {}
 
